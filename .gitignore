@@ -1,0 +1,48 @@
+# Perl / ExtUtils::MakeMaker and Module::Build output
+/blib/
+/_build/
+/Build
+/Build.bat
+/Makefile
+/Makefile.old
+/MYMETA.json
+/MYMETA.yml
+/pm_to_blib
+/MANIFEST.bak
+/*.tar.gz
+/*.zip
+
+# Local CPAN installs and test artifacts
+/local/
+/perl5/
+/.cpanm/
+/.prove
+/cover_db/
+/coverage/
+/node_modules/
+
+# Mojolicious / Hypnotoad runtime files
+/log/
+/logs/
+*.log
+*.pid
+*.pid.old
+/dist/
+
+# Local configuration; keep the committed examples
+/.env
+/.env.*
+!/.env.example
+/ecosystem.config.js
+/docker-compose.yml
+/docker-compose.override.yml
+/compose.yml
+/compose.override.yml
+
+# Editors and OS metadata
+*.swp
+*.swo
+*~
+.DS_Store
+.idea/
+.vscode/

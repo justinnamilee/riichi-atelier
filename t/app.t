@@ -1,0 +1,13 @@
+use strict;
+use warnings;
+use FindBin;
+use Test::More;
+use Test::Mojo;
+require "$FindBin::Bin/../app.pl";
+my $t=Test::Mojo->new;
+$t->get_ok('/')->status_is(200)->content_like(qr/Tile keyboard/);
+$t->get_ok('/health')->status_is(200)->json_is('/status'=>'ok');
+$t->get_ok('/app.js')->status_is(200);
+$t->get_ok('/assets/tiles/Man1.svg')->status_is(200)->content_like(qr/<svg/);
+$t->get_ok('/assets/tiles/Man5-Dora.svg')->status_is(200);
+done_testing;

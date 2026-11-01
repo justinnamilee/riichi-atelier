@@ -1,0 +1,11 @@
+services:
+  riichi-atelier:
+    image: ghcr.io/justinnamilee/riichi-atelier:latest
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      PORT: "8080"
+      MOJO_MODE: production
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 30s
