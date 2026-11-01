@@ -1,0 +1,68 @@
+name: Publish container
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+  packages: write
+
+# Serialize releases so two tag pushes cannot race to update latest.
+concurrency:
+  group: riichi-atelier-container-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event.deleted == false
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: ghcr.io/justinnamilee/riichi-atelier
+    steps:
+      - name: Validate stable version tag
+        shell: bash
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "Expected a stable version tag such as v1.0.1" >&2
+            exit 1
+          fi
+          echo "VERSION=${TAG#v}" >> "$GITHUB_ENV"
+
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Test hand entry and scoring
+        run: node --test t/*.test.js
+
+      # Dockerfile installs the Perl dependencies and runs prove before finishing.
+      - name: Build image and run Perl tests
+        run: docker build --tag "$IMAGE:$VERSION" .
+
+      - name: Smoke-test the production server
+        shell: bash
+        run: |
+          docker run -d --name riichi-atelier-ci -p 127.0.0.1:18080:8080 "$IMAGE:$VERSION"
+          trap 'docker logs riichi-atelier-ci; docker rm -f riichi-atelier-ci' EXIT
+          curl --fail --silent --show-error --retry 20 --retry-connrefused --retry-delay 1 \
+            http://127.0.0.1:18080/health
+
+      - name: Log in to GHCR
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+
+      - name: Publish version and latest tags
+        shell: bash
+        run: |
+          docker tag "$IMAGE:$VERSION" "$IMAGE:v$VERSION"
+          docker tag "$IMAGE:$VERSION" "$IMAGE:latest"
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:v$VERSION"
+          docker push "$IMAGE:latest"
