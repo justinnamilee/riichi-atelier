@@ -3,7 +3,7 @@
 'use strict';
 const labels={
  'Dealer':['Dealer','Oya'],'Non-dealer':['Non-dealer','Ko'],'Dealer pays':['Dealer pays','Oya pays'],'Each of 2 non-dealers':['Each of 2 non-dealers','Each of 2 ko'],
- 'Mangan':['Base limit','Mangan'],'Haneman':['1½× limit','Haneman'],'Baiman':['Double limit','Baiman'],'Sanbaiman':['Triple limit','Sanbaiman'],'Yakuman':['Top limit','Yakuman'],'Counted yakuman':['Counted top limit','Kazoe yakuman'],
+ 'Mangan':['Base limit','Mangan'],'Haneman':['1½× limit','Haneman'],'Baiman':['Double limit','Baiman'],'Sanbaiman':['Triple limit','Sanbaiman'],'Yakuman':['Yakuman','Yakuman'],'Counted yakuman':['Counted Yakuman','Kazoe yakuman'],
  'Seven distinct pairs':['Seven distinct pairs','Chiitoitsu'],'Thirteen orphans':['Thirteen orphans','Kokushi musou'],'Four sets and a pair':['Four sets and a pair','Four mentsu and a jantou'],'Closed hand':['Closed hand','Menzen hand'],'Called hand':['Called hand','Naki hand'],
  'Seven distinct pairs (fixed)':['Seven distinct pairs (fixed)','Chiitoitsu (fixed)'],'Concealed discard win':['Concealed discard win','Menzen ron'],'Self-draw':['Self-draw','Tsumo'],'Discard':['Discard','Ron'],
  'Value pair':['Value pair','Yakuhai pair'],'Pair wait':['Pair wait','Tanki wait'],'Closed wait':['Closed wait','Kanchan wait'],'Edge wait':['Edge wait','Penchan wait'],'Two-sided wait':['Two-sided wait','Ryanmen wait'],'Triplet wait':['Triplet wait','Shanpon wait'],'Open hand minimum':['Open hand minimum','Kuipinfu minimum'],
