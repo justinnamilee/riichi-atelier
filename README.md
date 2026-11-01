@@ -2,6 +2,10 @@
 
 A browser-based riichi mahjong calculator with fast tile entry and a clear breakdown of every score. Served by [Perl](https://perl.org/) and [Mojolicious](https://mojolicious.org/), with all scoring performed locally in your browser.
 
+<p align="center"><img src="preview.png" alt="Application Preview"></p>
+
+---
+
 ## Features
 
 - Click, drag, or type to build a hand, declare calls, and set bonus indicators.
